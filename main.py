@@ -1,16 +1,48 @@
-# This is a sample Python script.
+"""
+    Project: My Template Engine
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+    Author: Iuri Lopes Almeida
+
+    GitHub: https://github.com/Iuri-Almeida
+
+    Goal: Create a Template Engine
+
+    Reference: https://www.aosabook.org/en/500L/a-template-engine.html
+"""
+from template_engine import TemplateEngine
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def render_template(template: str = 'index.html', context: dict = None) -> str:
+    with open(template) as file:
+        engine = TemplateEngine(file.read())
+        engine = engine.render(context or {})
+
+    return engine
 
 
-# Press the green button in the gutter to run the script.
+def format_price(price: float) -> str:
+    return f'{price:.2f}'
+
+
+def main():
+    print(render_template('pages/index.html', {
+        'upper': str.upper,
+        'format_price': format_price,
+        'name': 'Iuri Lopes Almeida',
+        'product_list': [
+            {
+                'name': 'Playstation',
+                'price': 1000,
+                'show': True
+            },
+            {
+                'name': 'XBox',
+                'price': 3000,
+                'show': False
+            }
+        ]}
+    ))
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
