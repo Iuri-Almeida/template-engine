@@ -15,9 +15,9 @@ from template_engine import TemplateEngine
 def render_template(template: str = 'index.html', context: dict = None) -> str:
     with open(template) as file:
         engine = TemplateEngine(file.read())
-        engine = engine.render(context or {})
+        html = engine.render(context or {})
 
-    return engine
+    return html
 
 
 def format_price(price: float) -> str:
